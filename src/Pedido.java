@@ -60,5 +60,10 @@ public class Pedido
         return lstTotal.getMaiorTempo();
     }
 
+    public static void zeraTudo()
+    {
+        lstTotal.clear();
+        codigo = 1;
+    }
     
 }

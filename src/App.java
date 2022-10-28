@@ -36,14 +36,20 @@ public class App
                     Entregador.addRodada(); //adiciona rodada a fila do entregador
                     
                     System.out.println("");
+
+                    if (i==x-1)
+                    {
+                        Separador.addTudo();
+                        Entregador.addTudo();
+                    }
                 }
             }
 
             Separador.imprime();
             Entregador.imprime();
         
-            // Separador.MelhorSeparador(); //Separador que mais fez coletas
-            // Entregador.MelhorEntregador(); //Entregador que mais fez entregas
+            Separador.MelhorSeparador(); //Separador que mais fez coletas
+            Entregador.MelhorEntregador(); //Entregador que mais fez entregas
 
 
             System.out.println("Tempo médio dos pedidos na fila: " + Pedido.MediaRodadas() + " rodadas.");
@@ -51,6 +57,7 @@ public class App
             
             Separador.zeraTudo();
             Entregador.zeraTudo();
+            Pedido.zeraTudo();
             opcao = menu();
         }
     }

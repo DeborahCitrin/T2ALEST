@@ -41,10 +41,6 @@ public class Separador
         return nPedidos;
     }
 
-    public Pedido getPedidoInicio(){
-        return lstSeparador.retornaPedido();
-    }
-
     //cancelamento do pedido enquanto o separador coleta
     //rodadas zeradas
     //não há acréscimo aos pedidos coletados
@@ -60,13 +56,13 @@ public class Separador
     //separador ocupado
     //se terminar de coletar -> separador livre
     //chamado todas as vezes
-    public void separadorColeta(Separador sep){ //chamado dentro do separador livre
+    public void separadorColeta(){ //chamado dentro do separador livre
         if(lstSeparador.getTamanho()!=0)
         {
             if(livre == true) // se for a primeira iteracao
             {
                 rodadas = lstSeparador.getQtdInicio(); 
-                this.p = sep.getPedidoInicio();
+                this.p = lstSeparador.retornaPedido();
                 System.out.println("o pedido " +p.getCodigo()+ " começou a ser coletado");
                 lstSeparador.dequeue();
                 livre = false;
@@ -125,14 +121,15 @@ public class Separador
         if (lstSeparador.getTamanho()>0)
         {
             //System.out.print("lista quando entra em cancela pedido: ");
-            lstSeparador.devolveLista();
+            //lstSeparador.devolveLista();
             //System.out.println("\nfim da lista pre cancela pedido: " +lstSeparador.getFim());
             int ran = rand.nextInt(100);
             if(ran%5 == 0){
                 int pos = rand.nextInt(lstSeparador.getTamanho());
+                Pedido.addPedido(lstSeparador.getPedidoPos(pos)); //copia o pedido cancelado para a fila de Pedido
                 lstSeparador.removeAt(pos);
                 //System.out.print("lista depois do pedido ser removido: ");
-                lstSeparador.devolveLista();
+                //lstSeparador.devolveLista();
                 //System.out.println("fim da lista pos cancela pedido: " +lstSeparador.getFim());
                 cancelados++;
                 //System.out.println("Cancela fila sep. Aleatorio: " + pos);
@@ -146,7 +143,7 @@ public class Separador
         Pedido p1 = new Pedido(qtd);
         System.out.println("fim da lista pre add novo pedido: " +lstSeparador.getFim());
         lstSeparador.enqueue(p1);
-        Pedido.addPedido(p1); //REVISAR
+        // Pedido.addPedido(p1); //REVISAR
         totalPedidos++;
         System.out.println("novo fim da lista(entra pedido): " +lstSeparador.getFim());
     }
@@ -156,13 +153,13 @@ public class Separador
         //System.out.println("tamanho lista separador: " +lstSeparador.getTamanho());
         
         //System.out.println("inicio antes: " +lstSeparador.head());
-        separadores[0].separadorColeta(separadores[0]); 
+        separadores[0].separadorColeta(); 
         //System.out.println("\ninicio sep0: " +lstSeparador.head());
 
-        separadores[1].separadorColeta(separadores[1]);
+        separadores[1].separadorColeta();
         //System.out.println("\ninicio sep1: " +lstSeparador.head());
 
-        separadores[2].separadorColeta(separadores[2]);
+        separadores[2].separadorColeta();
         // System.out.println("\ninicio sep2: " +lstSeparador.head());
 
         // System.out.println("\ntamanho lista separador: " +lstSeparador.getTamanho());
@@ -200,6 +197,14 @@ public class Separador
         System.out.println("S0: " + separadores[0].getNumPedidos());
         System.out.println("S1: " + separadores[1].getNumPedidos());
         System.out.println("S2: " + separadores[2].getNumPedidos());
+    }
+
+    public static void addTudo()
+    {
+        for (int i=0; i<lstSeparador.getTamanho(); i++)
+        {
+            Pedido.addPedido(lstSeparador.getPedidoPos(i));
+        }
     }
 
     public static void zeraTudo()

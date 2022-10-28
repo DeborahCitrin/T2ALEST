@@ -189,6 +189,11 @@ public class Lista
         return null;
     }
 
+    public Pedido getPedidoPos(int i)
+    {
+        return getNodoPos(i).getPedido();
+    }
+
     //encontra quantas rodadas levou o pedido que ficou mais tempo em filas
     public int getMaiorTempo(){
         nodo aux = inicio;

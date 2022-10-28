@@ -14,6 +14,7 @@ public class Entregador
     private int rodadas;
     private int nEntregas;
     private boolean quaseCancelado;
+    private Pedido pedido;
 
     public static void criaEntregadores()
     {
@@ -50,12 +51,12 @@ public class Entregador
             if(livre == true) // se for a primeira iteracao
             {
                 rodadas = rand.nextInt(5) + 4;
+                this.pedido = lstEntregador.retornaPedido();
                 lstEntregador.dequeue();
                 livre = false;
                 System.out.println("número de rodadas para entregar o pedido: " + rodadas);
                 primeiraRodada = true;
             }
-            
         }
         
         if((primeiraRodada == false) && (livre==false))
@@ -71,8 +72,10 @@ public class Entregador
             
             if (rodadas>0)
             {
+                pedido.setRodadas();
                 rodadas--;
                 if (rodadas==0) {
+                    Pedido.addPedido(pedido); //copia o pedido cancelado para a fila de Pedido
                     livre = true;
                     pedidosEntregues++; //conta o total de pedidos entregues
                     nEntregas++; //conta quantas entregas o entregador fez
@@ -113,6 +116,7 @@ public class Entregador
             int ran = rand.nextInt(100);
             if(ran%5 == 0){
                 int pos = rand.nextInt(lstEntregador.getTamanho());
+                Pedido.addPedido(lstEntregador.getPedidoPos(pos)); //copia o pedido cancelado para a fila de Pedido
                 lstEntregador.removeAt(pos);
                 System.out.print("lista depois do pedido ser removido entregador: ");
                 lstEntregador.devolveLista();
@@ -143,12 +147,19 @@ public class Entregador
         int melhor = 0;
         int i = 0;
         
+        
+
         while(i<2){
             if(entregadores[i+1].getEntregas() > entregadores[i].getEntregas()){
                 melhor = i+1;
             }
+            
+            //Ver se os entregadores sao iguais
+
             i++;
         }
+        
+        
 
         System.out.println("O melhor entregador foi o de número " + melhor + 
         ", com " +entregadores[melhor].getEntregas() + " pedidos entregues.");
@@ -159,6 +170,14 @@ public class Entregador
         System.out.println("E0: " + entregadores[0].getEntregas());
         System.out.println("E1: " + entregadores[1].getEntregas());
         System.out.println("E2: " + entregadores[2].getEntregas());
+    }
+
+    public static void addTudo()
+    {
+        for (int i=0; i<lstEntregador.getTamanho(); i++)
+        {
+            Pedido.addPedido(lstEntregador.getPedidoPos(i));
+        }
     }
 
     public static void zeraTudo()
