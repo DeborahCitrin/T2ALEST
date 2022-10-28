@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-//FAZER: PROBABILIDADE DE CANCELAMENTO DURANTE AS FILAS - chamar setRodadas (acho que não precisa)
+//ADICIONAR RODADAS DA CLASSE PEDIDO - contar addRodadas do Separador + do Entregador?
 
 public class App
 {
@@ -11,15 +11,6 @@ public class App
 
         Separador.criaSeparadores();
         Entregador.criaEntregadores();
-        
-
-        // Preenche os arrays de separador e entregador
-        // for (int i = 0; i<3; i++)
-        // {
-        //     separadores[i] = new Separador();
-        //     entregadores[i] = new Entregador();
-        // }
-
 
         int opcao = menu();
         
@@ -29,19 +20,23 @@ public class App
             Scanner usr = new Scanner(System.in);
             int x = usr.nextInt();
 
-            for (int i=0; i<x; i++) // x rodadas, 1 pedido adicionado por rodada. Ao final, ainda há pedidos não entregues.
-            {
-                int qtd = 5;//rand.nextInt(9) + 1;
-                System.out.println("rodada: " +(i+1));
-                System.out.println("aleatorio: " +qtd);
+            if(x > 0){
+                for (int i=0; i<x; i++) // x rodadas, 1 pedido adicionado por rodada. Ao final, ainda há pedidos não entregues.
+                {
+                    int qtd = rand.nextInt(9) + 1;
+                    System.out.println("rodada: " +(i+1));
+                    System.out.println("aleatorio: " +qtd);
 
-                Separador.entraPedido(qtd); //o pedido entra na fila de separadores
-                Separador.fazRodada(); // se houver um livre, ele faz a coleta do pedido e manda ao entregador. Senão, o pedido continua na fila
-                Entregador.fazRodada(); //se houver um livre, ele sai para entregar um pedido. Senão, o pedido continua na fila para o entregador pegar
-                // Separador.addRodada(); //adiciona rodada a fila do separador
-                // Entregador.addRodada(); //adiciona rodada a fila do entregador
-                
-                System.out.println("");
+                    Separador.entraPedido(qtd); //o pedido entra na fila de separadores
+                    Separador.fazRodada(); // se houver um livre, ele faz a coleta do pedido e manda ao entregador. Senão, o pedido continua na fila
+                    Separador.cancelaPedidoFila();
+                    Entregador.fazRodada(); //se houver um livre, ele sai para entregar um pedido. Senão, o pedido continua na fila para o entregador pegar
+                    Entregador.cancelaPedidoFila();
+                    Separador.addRodada(); //adiciona rodada a fila do separador
+                    Entregador.addRodada(); //adiciona rodada a fila do entregador
+                    
+                    System.out.println("");
+                }
             }
 
             Separador.imprime();
@@ -58,36 +53,6 @@ public class App
             Entregador.zeraTudo();
             opcao = menu();
         }
-
-        
-        
-        
-
-        // numero de pedidos novos - FEITO
-        // numero de pedidos entregues - FEITO
-        // numero de pedidos cancelados - FEITO
-        // numero de pedidos quase cancelados - FEITO
-        
-        // qual separador separou mais - +-
-        // qual entregador entregou mais - +-
-
-        // tempo medio que os pedidos passaram nas filas 
-        // pedido que levou mais tempo para ser atendido
-
-
-
-        // rodada = 0
-        // while (rodada < n)
-        // {
-        //     rodada++;
-        //     cancelamento() - FEITO
-        //     entraPedido() - FEITO
-        //     separadorLivre() - pra ver se tá livre FEITO
-        //     separadorColeta() - separador começa a coletar o pedido FEITO 
-        //     pedidoColetado() 
-        //     entregadorLivre() - FEITO
-        //     entregadorNaRua() - FEITO
-        //     tempofila();
     }
 
     public static int menu()

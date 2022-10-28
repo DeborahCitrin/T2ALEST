@@ -1,4 +1,3 @@
-//Adicionar pedido no fim da fila, remover pedido do inicio da fila, remover pedido por index (cancelado)
 public class Lista
 {    
     private class nodo
@@ -22,9 +21,9 @@ public class Lista
             return referencia;
         }
 
-        public void setReferencia(nodo ref)
+        public void setReferencia(nodo referencia)
         {
-            this.referencia = ref;
+            this.referencia = referencia;
         }
 
         public void addRodada()
@@ -68,12 +67,12 @@ public class Lista
         return inicio.getPedido();
     }
 
-    public nodo retornaInicio(){
+    public nodo head(){
         return inicio;
     }
 
     //adiciona ao fim da fila
-    public void adicionar(Pedido p)
+    public void enqueue(Pedido p)
     {
         if(isEmpty())
         {
@@ -84,12 +83,12 @@ public class Lista
             nodo aux = new nodo(p);
             fim.setReferencia(aux);
             fim = aux;
-        }        
+        }
         tamanho++;
     }
 
-    //remove do inicio da fila
-    public void remover()
+    //remove do inicio da fila, não retorna o valor, como deveria o método dequeue
+    public void dequeue()
     {
         if(!isEmpty()){
             nodo nodoEliminado = inicio;
@@ -97,74 +96,36 @@ public class Lista
             nodoEliminado.setReferencia(null);
             nodoEliminado = null;
 
-            if(tamanho == 1) {fim = inicio;}
-
+            if(tamanho == 1) fim = inicio;
             tamanho--;
         }
     }
 
     //remove pedido de uma determinada posicao da lista
-    public void pedidoCancelado(int index){
-        if(index >= 0 && index < tamanho){
-            if(index==0){
-                //acao de eliminacao do primeiro
-                remover();
+    public boolean removeAt(int index){
+        if(isEmpty() || (index < 0) || (index >= tamanho))
+            return false;
+        else{
+            if(index == 0){
+                dequeue();
             }
-            else{
-            //     nodo nAnterior, nPosterior;
-            //     nAnterior = inicio; //pos 0
-            //    while(index-1 > 0){
-            //      nAnterior = nAnterior.getReferencia(); 
-            //      index--;
-            //    }
-            //    nPosterior = nAnterior.getReferencia();
-            //    nAnterior.setReferencia(nPosterior.getReferencia());
-
-            //    nPosterior.setReferencia(null);
-            //    nPosterior = null;
-            //    tamanho--;
-
+            else if(index < tamanho){ 
                 nodo eliminar = inicio;
                 for(int i=0; i<index-1; i++)
-                {
                     eliminar = eliminar.getReferencia();
-                }
 
-                nodo anterior=eliminar;
-                eliminar=eliminar.getReferencia();
-
-                if (index == tamanho-1)
-                {
-                    anterior.setReferencia(null);
-                }
-                else
-                {
-                    anterior.setReferencia(eliminar.getReferencia());
-                }
-
+                nodo anterior = eliminar;                
+                eliminar = eliminar.getReferencia(); 
+                anterior.setReferencia(eliminar.getReferencia()); 
                 eliminar.setReferencia(null);
+
+                if(index == tamanho-1){
+                    fim = anterior;
+                }
                 tamanho--;
             }
-            
-            
-            
-            // nodo nodoASerEliminado = inicio;
-
-            // if(index < tamanho){
-            //     for(int i=0; i<index-1; i++)
-            //         nodoASerEliminado=nodoASerEliminado.getReferencia();
-
-            //     nodo anterior=nodoASerEliminado;                
-            //     nodoASerEliminado=nodoASerEliminado.getReferencia();
-
-            //     anterior.setReferencia(nodoASerEliminado.getReferencia());
-            //     nodoASerEliminado.setReferencia(null);
-            // }
+            return true;
         }
-        // else{
-        //     remover();
-        // }
-        // tamanho--;
     }
 
     public boolean isEmpty(){
@@ -181,7 +142,7 @@ public class Lista
     public void addRodadas()
     {
         if(!isEmpty()){
-            int i = tamanho; //10
+            int i = tamanho; 
             
             if(tamanho==1) 
             {
@@ -189,15 +150,10 @@ public class Lista
             }
             else{
                 nodo aux = inicio;
-                while(i > 0){
-                    aux.addRodada(); System.out.println("addRodada");
-                    aux = aux.getReferencia(); System.out.println("getReferencia");
-                    System.out.println("");
-                    //System.out.println(aux.getCodigo());
-                    System.out.println("i: " +i);
+                while(i > 0) {
+                    aux.addRodada(); 
+                    aux = aux.getReferencia(); 
                     i--;
-                    System.out.println("i2: " +i);
-                    System.out.println("");
                 }
             }
         }
@@ -233,7 +189,6 @@ public class Lista
         return null;
     }
 
-
     //encontra quantas rodadas levou o pedido que ficou mais tempo em filas
     public int getMaiorTempo(){
         nodo aux = inicio;
@@ -247,5 +202,24 @@ public class Lista
             i--;
         }
         return maior;
+    }
+
+
+
+
+
+
+    public void devolveLista(){
+        nodo noAtual = this.inicio;
+        int i = 0;
+            while(i < tamanho){
+                System.out.println(noAtual);
+                noAtual = noAtual.getReferencia();
+                i++;
+            } 
+    }
+
+    public nodo getFim(){
+        return fim;
     }
 }

@@ -1,12 +1,9 @@
 public class Pedido 
-{   // tempo medio que os pedidos passaram no processo inteiro - FEITO
-    // pedido que levou mais tempo para ser atendido - FEITO
-
+{   
     private static int codigo = 1;
     private int cod;
     private int rodadas;
     private int qtd;
-    //criar boolean cancelado
 
     public Pedido(int qtd){
         this.rodadas = this.qtd = qtd; //recebe o tanto de rodadas que vai ficar com o separador 
@@ -37,12 +34,12 @@ public class Pedido
 
     private static Lista lstTotal = new Lista();
     
-    public static void addRodada(){ // precisa chamar ainda
+    public static void addRodada(){
         lstTotal.addRodadas();
     }
 
     public static void addPedido(Pedido p){
-        lstTotal.adicionar(p);
+        lstTotal.enqueue(p);
     }
     
     public static double MediaRodadas(){

@@ -49,8 +49,8 @@ public class Entregador
         {
             if(livre == true) // se for a primeira iteracao
             {
-                rodadas = 5;//rand.nextInt(5) + 4;
-                lstEntregador.remover();
+                rodadas = rand.nextInt(5) + 4;
+                lstEntregador.dequeue();
                 livre = false;
                 System.out.println("número de rodadas para entregar o pedido: " + rodadas);
                 primeiraRodada = true;
@@ -61,18 +61,17 @@ public class Entregador
         if((primeiraRodada == false) && (livre==false))
         {
             
-            // if(quaseCancelado==false){
-            //     if (rand.nextInt(100)> 85)
-            //     {
-            //         quaseCancelados++;
-            //     }
-            //     quaseCancelado = true;
-            // }
+            if(quaseCancelado==false){
+                if (rand.nextInt(100)> 85)
+                {
+                    quaseCancelados++;
+                }
+                quaseCancelado = true;
+            }
             
             if (rodadas>0)
             {
                 rodadas--;
-
                 if (rodadas==0) {
                     livre = true;
                     pedidosEntregues++; //conta o total de pedidos entregues
@@ -81,7 +80,6 @@ public class Entregador
             }
         }
         primeiraRodada = false;
-           
     }
 
     //METODOS DE CLASSE:
@@ -105,19 +103,30 @@ public class Entregador
     }
 
     //chamado da main em todas iterações
-    public static void cancelaFilaRandom()
+    public static void cancelaPedidoFila()
     {
-        if (rand.nextInt(100)>60)
+        if (lstEntregador.getTamanho()>0)
         {
-            lstEntregador.pedidoCancelado((rand.nextInt(lstEntregador.getTamanho())));
-            cancelados++;
+            System.out.print("lista quando entregador entra em cancela pedido: ");
+            lstEntregador.devolveLista();
+            //System.out.println("\nfim da lista pre cancela pedido: " +lstSeparador.getFim());
+            int ran = rand.nextInt(100);
+            if(ran%5 == 0){
+                int pos = rand.nextInt(lstEntregador.getTamanho());
+                lstEntregador.removeAt(pos);
+                System.out.print("lista depois do pedido ser removido entregador: ");
+                lstEntregador.devolveLista();
+                //System.out.println("fim da lista pos cancela pedido: " +lstSeparador.getFim());
+                cancelados++;
+                //System.out.println("Cancela fila sep. Aleatorio: " + pos);
+            }
         }
     }
 
     //pedido é adicionado a fila para ser entregado
     //valor não importa, o que importa é a ordem que o pedido entra na fila
     public static void entraPedido(Pedido p){
-        lstEntregador.adicionar(p);
+        lstEntregador.enqueue(p);
     }    
 
     public static void fazRodada()
