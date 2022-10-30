@@ -146,7 +146,8 @@ public class Entregador
     {   
         int melhor = 0;
         int i = 0;
-        
+        int iguais = 0;
+        String entIguais = "";
         
 
         while(i<2){
@@ -154,15 +155,48 @@ public class Entregador
                 melhor = i+1;
             }
             
+            // if(entregadores[i+1].getEntregas() == entregadores[i].getEntregas())
+            // {
+            //     iguais++;
+            // }
             //Ver se os entregadores sao iguais
-
             i++;
         }
-        
-        
 
-        System.out.println("O melhor entregador foi o de número " + melhor + 
+        for (i=0; i<3; i++)
+        {
+            if (entregadores[melhor].getEntregas() == entregadores[i].getEntregas())
+            {
+                iguais++;
+
+                if (i>0)
+                {
+                    if ((i==1) && (entregadores[i].getEntregas() == entregadores[i+1].getEntregas()))
+                    {
+                        entIguais += ", 1 e 2";
+                        break;
+                    }
+
+                    entIguais += " e ";
+                }
+
+                entIguais += i;
+                
+                
+            }
+        }
+
+        if (iguais > 1)
+        {
+            System.out.println("Os entregadores " +entIguais+ " tiveram " +entregadores[melhor].getEntregas()+ " entregas.");
+        }
+        else
+        {
+            System.out.println("O melhor entregador foi o de número " + melhor + 
         ", com " +entregadores[melhor].getEntregas() + " pedidos entregues.");
+        }
+
+        
     }
 
     public static void imprime()
