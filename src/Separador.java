@@ -6,7 +6,6 @@ public class Separador
     private static Lista lstSeparador = new Lista();
     private static int cancelados = 0;
     private static Random rand = new Random();
-    private static int totalPedidos = 0;
     //private static int codigo = 0;
 
     private boolean primeiraRodada;
@@ -105,10 +104,6 @@ public class Separador
         return cancelados;
     }
 
-    public static int getTotalPedidos(){
-        return totalPedidos;
-    }
-
     //adiciona mais uma rodada a cada nodo da lista 
     public static void addRodada(){
         if(lstSeparador.getTamanho()>0)
@@ -144,7 +139,6 @@ public class Separador
         System.out.println("fim da lista pre add novo pedido: " +lstSeparador.getFim());
         lstSeparador.enqueue(p1);
         // Pedido.addPedido(p1); //REVISAR
-        totalPedidos++;
         System.out.println("novo fim da lista(entra pedido): " +lstSeparador.getFim());
     }
 
@@ -246,6 +240,5 @@ public class Separador
         separadores[2] = new Separador();
         lstSeparador.clear();
         cancelados = 0;
-        totalPedidos = 0;
     }
 }
