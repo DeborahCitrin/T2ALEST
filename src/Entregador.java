@@ -66,8 +66,9 @@ public class Entregador
                 if (rand.nextInt(100)> 85)
                 {
                     quaseCancelados++;
+                    quaseCancelado = true;
                 }
-                quaseCancelado = true;
+                
             }
             
             if (rodadas>0)
@@ -75,10 +76,11 @@ public class Entregador
                 pedido.setRodadas();
                 rodadas--;
                 if (rodadas==0) {
-                    Pedido.addPedido(pedido); //copia o pedido cancelado para a fila de Pedido
+                    Pedido.addPedido(pedido); //copia o pedido concluido para a fila de Pedido
                     livre = true;
                     pedidosEntregues++; //conta o total de pedidos entregues
                     nEntregas++; //conta quantas entregas o entregador fez
+                    
                 }
             }
         }
@@ -206,13 +208,13 @@ public class Entregador
         System.out.println("E2: " + entregadores[2].getEntregas());
     }
 
-    public static void addTudo()
-    {
-        for (int i=0; i<lstEntregador.getTamanho(); i++)
-        {
-            Pedido.addPedido(lstEntregador.getPedidoPos(i));
-        }
-    }
+    // public static void addTudo()
+    // {
+    //     for (int i=0; i<lstEntregador.getTamanho(); i++)
+    //     {
+    //         Pedido.addPedido(lstEntregador.getPedidoPos(i));
+    //     }
+    // }
 
     public static void zeraTudo()
     {

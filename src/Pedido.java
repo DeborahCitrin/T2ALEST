@@ -4,11 +4,13 @@ public class Pedido
     private int cod;
     private int rodadas;
     private int qtd;
+    private boolean completo;
 
     public Pedido(int qtd){
         this.rodadas = this.qtd = qtd; //recebe o tanto de rodadas que vai ficar com o separador 
         cod = codigo;
         codigo += 1;
+        completo = false;
     }
 
     public void setRodadas(){
@@ -30,6 +32,11 @@ public class Pedido
 
     public int getQtd(){
         return qtd;
+    }
+
+    public void setCompleto()
+    {
+        completo = true;
     }
 
     private static Lista lstTotal = new Lista();

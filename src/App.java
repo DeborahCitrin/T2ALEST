@@ -23,11 +23,17 @@ public class App
             if(x > 0){
                 for (int i=0; i<x; i++) // x rodadas, 1 pedido adicionado por rodada. Ao final, ainda há pedidos não entregues.
                 {
-                    int qtd = rand.nextInt(9) + 1;
+                    
+                    
                     System.out.println("rodada: " +(i+1));
-                    System.out.println("aleatorio: " +qtd);
+                    
 
-                    Separador.entraPedido(qtd); //o pedido entra na fila de separadores
+                    if (!rand.nextBoolean())
+                    {
+                        int qtd = rand.nextInt(9) + 1;
+                        System.out.println("Entrou pedido aleatorio: " +qtd);
+                        Separador.entraPedido(qtd); //o pedido entra na fila de separadores
+                    }
                     Separador.fazRodada(); // se houver um livre, ele faz a coleta do pedido e manda ao entregador. Senão, o pedido continua na fila
                     Separador.cancelaPedidoFila();
                     Entregador.fazRodada(); //se houver um livre, ele sai para entregar um pedido. Senão, o pedido continua na fila para o entregador pegar
@@ -40,7 +46,7 @@ public class App
                     if (i==x-1)
                     {
                         Separador.addTudo();
-                        Entregador.addTudo();
+                        // Entregador.addTudo();
                     }
                 }
             }
