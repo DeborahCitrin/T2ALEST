@@ -180,6 +180,8 @@ public class Separador
     {   
         int melhor = 0;
         int i = 0;
+        int iguais = 0;
+        String entIguais = "";
         
         while(i<2){
             if(separadores[i+1].getNumPedidos() > separadores[i].getNumPedidos()){
@@ -188,8 +190,38 @@ public class Separador
             i++;
         }
 
-        System.out.println("O melhor separador foi o de número " + melhor + 
-        ", com " +separadores[melhor].getNumPedidos() + " pedidos separados.");
+        for (i=0; i<3; i++)
+        {
+            if (separadores[melhor].getNumPedidos() == separadores[i].getNumPedidos())
+            {
+                iguais++;
+
+                if (i>0)
+                {
+                    if ((i==1) && (separadores[i].getNumPedidos() == separadores[i+1].getNumPedidos()))
+                    {
+                        entIguais += ", 1 e 2";
+                        break;
+                    }
+
+                    entIguais += " e ";
+                }
+
+                entIguais += i;
+                
+                
+            }
+        }
+
+        if (iguais > 1)
+        {
+            System.out.println("Os separadores " +entIguais+ " tiveram " +separadores[melhor].getNumPedidos()+ " coletas.");
+        }
+        else
+        {
+            System.out.println("O melhor separador foi o de número " + melhor + 
+        ", com " +separadores[melhor].getNumPedidos() + " pedidos coletados.");
+        }
     }
 
     public static void imprime()
