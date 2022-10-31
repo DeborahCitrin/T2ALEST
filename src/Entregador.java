@@ -140,7 +140,6 @@ public class Entregador
         entregadores[0].entrega(); 
         entregadores[1].entrega();
         entregadores[2].entrega();
-        
     }
 
     //Qual dos entregadores entregou mais + número de pedidos entregues
@@ -156,12 +155,6 @@ public class Entregador
             if(entregadores[i+1].getEntregas() > entregadores[i].getEntregas()){
                 melhor = i+1;
             }
-            
-            // if(entregadores[i+1].getEntregas() == entregadores[i].getEntregas())
-            // {
-            //     iguais++;
-            // }
-            //Ver se os entregadores sao iguais
             i++;
         }
 
