@@ -112,16 +112,17 @@ public class Entregador
     {
         if (lstEntregador.getTamanho()>0)
         {
-            System.out.print("lista quando entregador entra em cancela pedido: ");
-            lstEntregador.devolveLista();
+            // System.out.print("lista quando entregador entra em cancela pedido: ");
+            // lstEntregador.devolveLista();
             //System.out.println("\nfim da lista pre cancela pedido: " +lstSeparador.getFim());
             int ran = rand.nextInt(100);
             if(ran%5 == 0){
                 int pos = rand.nextInt(lstEntregador.getTamanho());
-                Pedido.addPedido(lstEntregador.getPedidoPos(pos)); //copia o pedido cancelado para a fila de Pedido
+                System.out.println("Pedido cancelado: " +lstEntregador.getPedidoPos(pos));
+                // Pedido.addPedido(lstEntregador.getPedidoPos(pos)); //copia o pedido cancelado para a fila de Pedido
                 lstEntregador.removeAt(pos);
-                System.out.print("lista depois do pedido ser removido entregador: ");
-                lstEntregador.devolveLista();
+                // System.out.print("lista depois do pedido ser removido entregador: ");
+                // lstEntregador.devolveLista();
                 //System.out.println("fim da lista pos cancela pedido: " +lstSeparador.getFim());
                 cancelados++;
                 //System.out.println("Cancela fila sep. Aleatorio: " + pos);
@@ -137,9 +138,13 @@ public class Entregador
 
     public static void fazRodada()
     {
+        System.out.println("Liberdade antes: 0: " +entregadores[0].getLiberdade()+ " // 1: " +entregadores[1].getLiberdade()+ 
+        " // 2: " +entregadores[2].getLiberdade());
         entregadores[0].entrega(); 
         entregadores[1].entrega();
         entregadores[2].entrega();
+        System.out.println("Liberdade depois: 0: " +entregadores[0].getLiberdade()+ " // 1: " +entregadores[1].getLiberdade()+ 
+        " // 2: " +entregadores[2].getLiberdade());
     }
 
     //Qual dos entregadores entregou mais + número de pedidos entregues

@@ -23,7 +23,7 @@ public class App
             if(x > 0){
                 for (int i=0; i<x; i++) // x rodadas, 1 pedido adicionado por rodada. Ao final, ainda há pedidos não entregues.
                 {
-                    System.out.println("rodada: " +(i+1));
+                    System.out.println("----------- RODADA " +(i+1)+ " -----------");
 
                     if (!rand.nextBoolean()) // define se entra pedido novo ou nao
                     {
@@ -32,14 +32,22 @@ public class App
                         Separador.entraPedido(qtd); //o pedido entra na fila de separadores
                     }
 
+                    System.out.println("\nSeparador fazRodada: ");
                     Separador.fazRodada(); // se houver um livre, ele faz a coleta do pedido e manda ao entregador. Senão, o pedido continua na fila
+                    
+                    System.out.println("\nSeparador cancelaPedidoFila: ");
                     Separador.cancelaPedidoFila();
+
+                    System.out.println("\nEntregador fazRodada: ");
                     Entregador.fazRodada(); //se houver um livre, ele sai para entregar um pedido. Senão, o pedido continua na fila para o entregador pegar
+                    
+                    System.out.println("\nEntregador cancelaPedidoFila: ");
                     Entregador.cancelaPedidoFila();
+                    
                     Separador.addRodada(); //adiciona rodada a fila do separador
                     Entregador.addRodada(); //adiciona rodada a fila do entregador
                     
-                    System.out.println("");
+                    System.out.println("---------------------------------\n");
                 }
             }
 

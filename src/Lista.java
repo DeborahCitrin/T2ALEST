@@ -221,7 +221,7 @@ public class Lista
                 System.out.println(noAtual);
                 noAtual = noAtual.getReferencia();
                 i++;
-            } 
+            }
     }
 
     public nodo getFim(){
