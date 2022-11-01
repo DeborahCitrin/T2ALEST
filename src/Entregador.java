@@ -67,6 +67,7 @@ public class Entregador
                 {
                     quaseCancelados++;
                     quaseCancelado = true;
+                    System.out.println("Quase cancelado: " +pedido.getCodigo());
                 }
                 
             }
@@ -76,6 +77,7 @@ public class Entregador
                 pedido.setRodadas();
                 rodadas--;
                 if (rodadas==0) {
+                    System.out.println("Pedido entregue: " +pedido.getCodigo());
                     Pedido.addPedido(pedido); //copia o pedido concluido para a fila de Pedido
                     livre = true;
                     pedidosEntregues++; //conta o total de pedidos entregues
@@ -118,7 +120,7 @@ public class Entregador
             int ran = rand.nextInt(100);
             if(ran%5 == 0){
                 int pos = rand.nextInt(lstEntregador.getTamanho());
-                System.out.println("Pedido cancelado: " +lstEntregador.getPedidoPos(pos));
+                System.out.println("Pedido cancelado: " +lstEntregador.getPedidoPos(pos).getCodigo());
                 // Pedido.addPedido(lstEntregador.getPedidoPos(pos)); //copia o pedido cancelado para a fila de Pedido
                 lstEntregador.removeAt(pos);
                 // System.out.print("lista depois do pedido ser removido entregador: ");

@@ -121,7 +121,7 @@ public class Separador
             int ran = rand.nextInt(100);
             if(ran%5 == 0){
                 int pos = rand.nextInt(lstSeparador.getTamanho());
-                System.out.println("Pedido cancelado: " +lstSeparador.getPedidoPos(pos));
+                System.out.println("Pedido cancelado: " +lstSeparador.getPedidoPos(pos).getCodigo());
                 // Pedido.addPedido(lstSeparador.getPedidoPos(pos)); //copia o pedido cancelado para a fila de Pedido
                 lstSeparador.removeAt(pos);
                 cancelados++;
